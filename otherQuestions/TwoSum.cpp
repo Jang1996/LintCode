@@ -1,21 +1,21 @@
 /*
-����֮��
+两数之和
 
-����
-�ʼ�
-����
-����
-��һ���������飬�ҵ�������ʹ�����ǵĺ͵���һ���������� target��
+描述
+笔记
+数据
+评测
+给一个整数数组，找到两个数使得他们的和等于一个给定的数 target。
 
-����Ҫʵ�ֵĺ���twoSum��Ҫ���������������±�, ���ҵ�һ���±�С�ڵڶ����±ꡣע�������±�ķ�Χ�� 1 �� n�������� 0 ��ͷ��
+你需要实现的函数twoSum需要返回这两个数的下标, 并且第一个下标小于第二个下标。注意这里下标的范围是 1 到 n，不是以 0 开头。
 
-ע������
+注意事项
 
-����Լ���ֻ��һ��𰸡�
+你可以假设只有一组答案。
 
-������ʵ���������Ƿ�����������⣿ Yes
-����
-���� numbers = [2, 7, 11, 15], target = 9, ���� [1, 2].
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+给出 numbers = [2, 7, 11, 15], target = 9, 返回 [1, 2].
 
 */
 
@@ -37,8 +37,8 @@ public:
 		while (i<j){
 			m = nums[i] + nums[j];
 			if (m == target)
-				// {  v.push_back(i+1);v.push_back(j+1);return v;}
-				break;
+				// {  v.push_back(i+1);v.push_back(j+1);return v;} 这里不能直接push_back，因为nums已经被排序，此时的i，j不是nums[i]、nums[j]在原来的nums的顺序。			
+                          break;
 			if (m>target) j--;
 			if (m<target) i++;
 
