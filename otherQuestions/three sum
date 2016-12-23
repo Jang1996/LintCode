@@ -1,0 +1,48 @@
+/*三数之和
+
+描述 
+ 笔记 
+ 数据 
+ 评测 
+ 给出一个有n个整数的数组S，在S中找到三个整数a, b, c，找到所有使得a + b + c = 0的三元组。
+
+注意事项
+
+在三元组(a, b, c)，要求a <= b <= c。
+
+结果不能包含重复的三元组。
+
+您在真实的面试中是否遇到过这个题？ Yes 
+样例 
+ 如S = {-1 0 1 2 -1 -4}, 你需要返回的三元组集合的是：
+
+(-1, 0, 1)
+
+(-1, -1, 2)
+*/
+
+class Solution {
+public:    
+    /**
+     * @param numbers : Give an array numbers of n integer
+     * @return : Find all unique triplets in the array which gives the sum of zero.
+     */
+vector<vector<int> > threeSum(vector<int> &nums) {
+
+    int i,j,p;
+        set<vector<int>> s;//set里数据不重复，注意，set里{-1，0，1}与{1，0，-1}是不同的元素，不算做重复，这里之所以可以用set是因为sort排序之后再插入答案，顺序都是由小到大的，所以不会出现刚刚那种情况。
+    sort(nums.begin(),nums.end());
+    for( i=0;i<nums.size()-2;++i){
+        if(nums[i]>0) break;//这里
+        int m=0-nums[i];
+        j=nums.size()-1;p=i+1;
+        while(p<j){
+            if(nums[p]+nums[j]==m) {s.insert({nums[i],nums[p],nums[j]});p++;j--;}//对特定的i来说,p,j不唯一，所以插入一个数后，要继续，不能break;更不能不处理，会超时。
+            if(nums[p]+nums[j]<m) p++;
+            if(nums[p]+nums[j]>m) j--;
+        }
+
+    }
+    return vector<vector<int>>(s.begin(),s.end());//这里
+}
+};
