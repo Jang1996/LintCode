@@ -1,0 +1,56 @@
+/*复制带随机指针的链表
+
+描述 
+ 笔记 
+ 数据 
+ 评测 
+ 给出一个链表，每个节点包含一个额外增加的随机指针可以指向链表中的任何节点或空的节点。
+
+返回一个深拷贝的链表。 
+
+您在真实的面试中是否遇到过这个题？ Yes 
+样例 
+ 挑战 
+ 可否使用O(1)的空间
+
+思路：一开始我的思路算法比较复杂，然后在《剑指offer》找到原题，
+正确思路应该如下：在每个节点后复制一个和本节点一样的节点，然后cur->next->random=cur->random->next,最后再把链表分成两个。*/
+/**
+ * Definition for singly-linked list with a random pointer.
+ * struct RandomListNode {
+ *     int label;
+ *     RandomListNode *next, *random;
+ *     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    /**
+     * @param head: The head of linked list with a random pointer.
+     * @return: A new head of a deep copy of the list.
+     */
+    RandomListNode *copyRandomList(RandomListNode *head) {
+        // write your code here
+   //     if(head==NULL ) return NULL;
+   RandomListNode *cur=head;
+   while(cur){
+       RandomListNode * p=new RandomListNode(cur->label);
+       p->next=cur->next;
+       cur->next=p;
+       cur=cur->next->next;
+   }
+   cur=head;
+   while(cur){
+     if(cur->random)  cur->next->random=cur->random->next;
+       cur=cur->next->next;
+   }
+   cur=head;RandomListNode *q=head->next,*m=head->next;
+   while(cur){
+     cur->next=cur->next->next;
+     if(cur->next)  q->next=cur->next->next;
+       cur=cur->next;
+       q=q->next;
+   }
+        return m;
+    }
+};
