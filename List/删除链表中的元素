@@ -1,0 +1,83 @@
+/*删除链表中的元素
+
+描述 
+ 笔记 
+ 数据 
+ 评测 
+ 删除链表中等于给定值val的所有节点。
+
+您在真实的面试中是否遇到过这个题？ Yes 
+样例 
+ 给出链表 1->2->3->3->4->5->3, 和 val = 3, 你需要返回删除3之后的链表：1->2->4->5。*/
+ 
+ 
+ 
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    /**
+     * @param head a ListNode
+     * @param val an integer
+     * @return a ListNode
+     */
+     //solution1
+     //这里是找到相同节点，然后一起删除
+    ListNode *removeElements(ListNode *head, int val) {
+    ListNode *pre=new ListNode(-1);
+    ListNode *p,*cur=pre;
+    pre->next=head;
+    while(cur->next){
+    if(cur->next->val==val){
+    p=cur;
+    while(cur->next&&cur->next->val==val)//这里也要判断cur->next存不存在
+    cur=cur->next;
+    p->next=cur->next;
+    }
+  if(cur->next)//这里要判断，因为经过上面的删除后，不确定cur->next是否还存在 
+  cur=cur->next;
+    }
+    return pre->next;
+    }
+    
+    
+    
+    //solution2
+    //这里是一个一个节点删除
+    
+     ListNode *removeElements(ListNode *head, int val) {
+        // Write your code here
+       
+      ListNode* pre=new ListNode(-1);
+        pre->next=head;
+        ListNode* p=pre;
+        while(p->next){
+            if(p->next->val==val){
+                ListNode *q=p->next;
+                 p->next=q->next;
+               q->next=NULL;
+                delete q;
+                
+            }
+           else p=p->next;
+        }
+        return pre->next;
+        }
+        
+        
+        //solution3
+        //使用递归
+        
+        ListNode *removeElements(ListNode *head, int val) {
+       if(head==NULL) return NULL;
+     head->next=   removeElements(head->next,val);
+        return head->val==val? head->next:head;
+        }
+        }
+        
