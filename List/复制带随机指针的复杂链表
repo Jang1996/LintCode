@@ -37,17 +37,19 @@ public:
        RandomListNode * p=new RandomListNode(cur->label);
        p->next=cur->next;
        cur->next=p;
-       cur=cur->next->next;
+       cur=cur->next->next;//不要忘记这个步骤
    }
    cur=head;
    while(cur){
-     if(cur->random)  cur->next->random=cur->random->next;
+     if(cur->random)//random 可能为null 
+     cur->next->random=cur->random->next;
        cur=cur->next->next;
    }
    cur=head;RandomListNode *q=head->next,*m=head->next;
    while(cur){
      cur->next=cur->next->next;
-     if(cur->next)  q->next=cur->next->next;
+     if(cur->next)//不要漏了这个步骤 
+     q->next=cur->next->next;//不要写成：q-next=cur->next;
        cur=cur->next;
        q=q->next;
    }
