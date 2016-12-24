@@ -1,0 +1,29 @@
+ 删除排序链表中的重复元素
+
+ 描述
+ 笔记
+ 数据
+ 评测
+给定一个排序链表，删除所有重复的元素每个元素只留下一个。
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+给出 1->1->2->null，返回 1->2->null
+
+给出 1->1->2->3->3->null，返回 1->2->3->null
+ ListNode *deleteDuplicates(ListNode *head) {
+ if(head==NULL) return NULL;//不要忘了判断
+ ListNode *pre=new ListNode(-1);
+      pre->next=head;
+ ListNode *cur=pre;
+ while(cur->next){
+ ListNode *q=cur;
+ if(cur->next->next&&cur->next->val==cur->next->next->val){
+   while(cur->next->next&&cur->next->val==cur->next->next->val)
+    cur=cur->next;
+  q->next=cur->next;
+ }
+ cur=cur->next;
+ }
+ return pre->next;
+ }
