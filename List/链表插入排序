@@ -1,0 +1,30 @@
+/*链表插入排序
+
+ 描述
+ 笔记
+ 数据
+ 评测
+用插入排序对链表排序
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+Given 1->3->2->0->null, return 0->1->2->3->null*/
+
+
+ ListNode *insertionSortList(ListNode *head) {
+  if(head==NULL) return NULL;
+ ListNode *pre=new ListNode(-1);
+ pre->next=head;
+ ListNode *cur=head->next;
+ pre->next->next=NULL;
+ while(cur){
+ ListNode *q=pre,*p=cur->next;
+ while(q->next&&cur->val>q->next->val)
+ q=q->next;
+ 
+ cur->next=q->next;
+ q->next=cur;                   
+ cur=p;
+ }
+ return pre->next;
+ }
