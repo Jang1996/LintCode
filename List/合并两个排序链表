@@ -1,0 +1,25 @@
+合并两个排序链表
+
+ 描述
+ 笔记
+ 数据
+ 评测
+将两个排序链表合并为一个新的排序链表
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+给出 1->3->8->11->15->null，2->null， 返回 1->2->3->8->11->15->null
+ListNode *mergeTwoLists(ListNode* l1,ListNode* l2){
+ListNode * pre=new ListNode(-1);
+ListNode *p=pre;
+while(l1&&l2){
+if(l1->val>l2->val) 
+{p->next=new ListNode(l2->val);l2=l2->next;}
+else 
+{p->next=new ListNode(l1->val);l1=l1->next;}
+p=p->next;
+}
+if(l1) p->next=l1;
+if(l2) p->next=l2;
+return pre->next;
+}
