@@ -1,0 +1,48 @@
+/*翻转链表 II
+
+ 描述
+ 笔记
+ 数据
+ 评测
+翻转链表中第m个节点到第n个节点的部分
+
+ 注意事项
+
+m，n满足1 ≤ m ≤ n ≤ 链表长度
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+给出链表1->2->3->4->5->null， m = 2 和n = 4，返回1->4->3->2->5->null
+
+挑战 
+在原地一次翻转完成*/
+思路：假定原链表为1->2->3->4->5->null,m=2,n=4,即要翻转的是2->3->4，然后我们把链表分成三部分。第一部分：dummy->1,这里之所以要建个头结点，是考虑到当
+m==1时，即从头开始翻转的情况。第二部分：pre->2->3->4。第三部分：5->null。然后翻转第二部分，然后再插进去。
+ ListNode *reverseBetween(ListNode *head, int m, int n) {
+        // write your code here
+        int i=0;ListNode *dummy=new ListNode(-1);
+        dummy->next=head;ListNode *m1=dummy,*n1;
+        while(i<m-1) {
+            m1=m1->next; i++;
+        }//m1指向第m-1个结点，即指向1
+        n1=m1;
+        while(i<n){
+            n1=n1->next;i++;
+        }//n1指向第n-1个结点，即指向4
+        ListNode *pre=new ListNode(-1);
+       
+       pre->next=m1->next;
+        m1->next=n1->next;//这里是暂时把第一部分和第二部分相连
+        n1->next=NULL;//这个一定要，不然会死循环
+        ListNode *p=pre->next;
+        while(p->next){
+            ListNode *cur=p->next;
+            p->next=cur->next;
+            cur->next=pre->next;
+            pre->next=cur;
+        }
+        
+       p->next=m1->next;
+       m1->next=pre->next;
+       return dummy->next;
+    }
