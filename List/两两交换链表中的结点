@@ -1,0 +1,38 @@
+两两交换链表中的节点
+
+ 描述
+ 笔记
+ 数据
+ 评测
+给一个链表，两两交换其中的节点，然后返回交换后的链表。
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+给出 1->2->3->4, 你应该返回的链表是 2->1->4->3。
+
+挑战 
+你的算法只能使用常数的额外空间，并且不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换
+
+ ListNode* swapPairs(ListNode* head) {
+        // Write your code here
+   
+        ListNode *dummy=new ListNode(-1);
+        dummy->next=head;
+        ListNode *cur=dummy,*p;
+        while(cur->next&&cur->next->next){//这里同时也要判断cur->next是否存在
+            p=cur->next->next;
+            cur->next->next=p->next;
+           p->next=cur->next;
+           cur->next=p;
+           cur=cur->next->next;
+        }
+        return dummy->next;
+    }
+    //递归解法
+     ListNode* swapPairs(ListNode* head) {
+        if (!head || !head->next) return head;
+        ListNode *t = head->next;
+        head->next = swapPairs(head->next->next);
+        t->next = head;
+        return t;
+    }
