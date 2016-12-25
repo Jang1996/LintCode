@@ -1,0 +1,82 @@
+交换链表当中两个节点
+
+ 描述
+ 笔记
+ 数据
+ 评测
+给你一个链表以及两个权值v1和v2，交换链表中权值为v1和v2的这两个节点。保证链表中节点权值各不相同，如果没有找到对应节点，那么什么也不用做。
+
+ 注意事项
+
+你需要交换两个节点而不是改变节点的权值
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+给出链表 1->2->3->4->null ，以及 v1 = 2 ， v2 = 4
+返回结果 1->4->3->2->null。
+//这道题有几个注意点：
+1.与v1、v2值相同的节点不存在
+2、v1与v2值相同
+3、两节点相邻
+ ListNode* swapNodes(ListNode* head, int v1, int v2) {
+        // Write your code here
+        if(v1==v2) return head;
+        ListNode *dummy =new ListNode(-1);
+        dummy->next=head;
+        ListNode *p=NULL,*q=NULL,*pre=dummy;
+        while(dummy->next){
+            if(dummy->next->val==v1)  p=dummy;
+            if(dummy->next->val==v2)  q=dummy;
+            dummy=dummy->next;
+    }if(q==NULL||p==NULL) return head;
+    if(q->next==p||p->next==q){
+        ListNode *temp=q;
+        q=q->next==p?q:p;
+        p=q->next==p?p:temp;
+        
+       ListNode *cur=p->next;
+       p->next=p->next->next;
+       cur->next=p;
+       q->next=cur;
+       
+    }else
+    {
+    ListNode *cur=p->next;
+    p->next=p->next->next;
+    cur->next=q->next->next;
+    q->next->next=p->next;
+    p->next=q->next;
+    q->next=cur;
+        
+    }
+    return pre->next;
+    }
+    //网上找到的更为简便的解法
+    ListNode* swapNodes(ListNode* head, int v1, int v2) {
+        ListNode *dummy = new ListNode(-1);
+        dummy->next = head;
+        ListNode *pre = dummy, *cur = dummy, *p1 = NULL, *p2 = NULL;
+        while (cur->next) {
+            if (cur->next->val == v1 || cur->next->val == v2) {
+                if (!p1) {
+                    p1 = cur->next;
+                    pre = cur;
+                } else {
+                    ListNode *t = cur->next->next;
+                    p2 = cur->next;
+                    pre->next = p2;
+                    if (cur == p1) {
+                        p2->next = p1;
+                        p1->next = t;
+                    } else {
+                        p2->next = p1->next;
+                        cur->next = p1;
+                        p1->next = t;
+                    }
+                    return dummy->next;
+                }
+            }
+            cur = cur->next;
+        }
+        return dummy->next;
+    }
