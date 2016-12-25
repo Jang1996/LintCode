@@ -17,6 +17,7 @@ O(n)的时间和O(1)的额外空间。
         // Write your code here
         if(head==NULL) return true;
         ListNode *p=head,*q=head,*pre;
+        //part1
         while(q&&q->next){//这里要判断q，当q=q->next->next执行后，如果q=null，不判断的话此时会报错
             pre=p;
             p=p->next;
@@ -30,7 +31,7 @@ O(n)的时间和O(1)的额外空间。
         else{dummy=pre;
             end=p;
         }
-        
+        //part2
         while(end&&end->next){//这里end也要判断，因为当输入数据：1->null时，end=NULL
             cur=end->next;
             end->next=cur->next;
@@ -46,3 +47,9 @@ O(n)的时间和O(1)的额外空间。
         }
         return true;
     }
+    part1的部分为找到链表中点，我考虑到链表的长度可能为2的倍数，也可能不是，是分两种情况来的，下面代码和part1等效，但更为简洁
+     while (fast->next && fast->next->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        此时fast指向最后一个有效节点，而slow指向要旋转的节点的前一个节点
