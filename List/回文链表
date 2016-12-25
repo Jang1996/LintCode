@@ -1,0 +1,48 @@
+回文链表
+
+ 描述
+ 笔记
+ 数据
+ 评测
+设计一种方式检查一个链表是否为回文链表。
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+1->2->1 就是一个回文链表。
+
+挑战 
+O(n)的时间和O(1)的额外空间。
+思路：把后半部分旋转
+ bool isPalindrome(ListNode* head) {
+        // Write your code here
+        if(head==NULL) return true;
+        ListNode *p=head,*q=head,*pre;
+        while(q&&q->next){//这里要判断q，当q=q->next->next执行后，如果q=null，不判断的话此时会报错
+            pre=p;
+            p=p->next;
+            q=q->next->next;
+        }
+        ListNode *dummy,*end,*cur;
+        if(q){
+           dummy=p;
+           end=p->next;
+        }
+        else{dummy=pre;
+            end=p;
+        }
+        
+        while(end&&end->next){//这里end也要判断，因为当输入数据：1->null时，end=NULL
+            cur=end->next;
+            end->next=cur->next;
+            cur->next=dummy->next;
+            dummy->next=cur;
+        }
+        while(dummy->next){
+            if(head->val==dummy->next->val){
+                head=head->next;
+                dummy=dummy->next;
+            }
+            else return false;
+        }
+        return true;
+    }
