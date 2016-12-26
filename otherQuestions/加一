@@ -1,0 +1,27 @@
+ 加一
+
+ 描述
+ 笔记
+ 数据
+ 评测
+给定一个非负数，表示一个数字数组，在该数的基础上+1，返回一个新的数组。
+
+该数字按照大小进行排列，最大的数在列表的最前面。
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+给定 [1,2,3] 表示 123, 返回 [1,2,4].
+
+给定 [9,9,9] 表示 999, 返回 [1,0,0,0].
+vector<int> plusOne(vector<int>& digits) {
+        // Write your code here
+        int carry=1;int i=digits.size(),sum;
+        while(carry>0&&i>0){
+            sum=digits[i-1]+carry;
+            carry=sum/10;
+            digits[i-1]=sum%10;
+            i--;
+        }
+        if(carry>0) digits.insert(digits.begin(),carry);
+        return digits;
+    }
