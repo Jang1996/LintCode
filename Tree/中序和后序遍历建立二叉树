@@ -1,0 +1,44 @@
+中序遍历和后序遍历树构造二叉树
+
+ 描述
+ 笔记
+ 数据
+ 评测
+根据中序遍历和后序遍历树构造二叉树
+
+ 注意事项
+
+你可以假设树中不存在相同数值的节点
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+给出树的中序遍历： [1,2,3] 和后序遍历： [1,3,2]
+
+返回如下的树：
+
+  2
+
+ /  \
+
+1    3
+TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder) {
+        // write your code here
+        return buildTree(inorder, 0, inorder.size() - 1, postorder, 0, postorder.size() - 1);
+    
+    }
+   
+        TreeNode *buildTree(vector<int> &inorder, int iLeft, int iRight, vector<int> &postorder, int pLeft, int pRight) {
+        {
+        if (iLeft > iRight || pLeft > pRight) return NULL;
+        TreeNode *cur = new TreeNode(postorder[pRight]);
+        int i = 0;
+        for (i = iLeft; i < iRight; ++i) {
+            if (inorder[i] == cur->val) break;
+        }
+        cur->left = buildTree(inorder, iLeft, i - 1, postorder, pLeft, pLeft + i - iLeft - 1);
+        cur->right = buildTree(inorder, i + 1, iRight, postorder, pLeft + i - iLeft, pRight - 1);
+        return cur;
+    
+    }
+        
+        
