@@ -1,0 +1,44 @@
+二叉树的锯齿形层次遍历
+
+ 描述
+ 笔记
+ 数据
+ 评测
+给出一棵二叉树，返回其节点值的锯齿形层次遍历（先从左往右，下一层再从右往左，层与层之间交替进行） 
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+给出一棵二叉树 {3,9,20,#,#,15,7},
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+返回其锯齿形的层次遍历为：
+
+[
+  [3],
+  [20,9],
+  [15,7]
+]
+标签 
+
+vector<vector<int>> zigzagLevelOrder(TreeNode *root) {
+        // write your code here
+        vector<vector<int>> v;
+        if(root==NULL) return v;
+        zizagLevelOrder(root,0,v);
+        return v;
+    }
+    void zizagLevelOrder(TreeNode *root,int level,vector<vector<int>> &v){
+        if(root==NULL) return ;
+        if(level==v.size()) v.push_back({});
+        if(level%2==1) {
+            if(v[level].size()==0) v[level].push_back(root->val);
+           else v[level].insert(v[level].begin(),root->val);}
+        else v[level].push_back(root->val);
+        zizagLevelOrder(root->left,level+1,v);
+        zizagLevelOrder(root->right,level+1,v);
+        
+    }
