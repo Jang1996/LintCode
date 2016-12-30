@@ -1,0 +1,31 @@
+等价二叉树
+
+ 描述
+ 笔记
+ 数据
+ 评测
+检查两棵二叉树是否等价。等价的意思是说，首先两棵二叉树必须拥有相同的结构，并且每个对应位置上的节点上的数都相等。
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+    1             1
+   / \           / \
+  2   2   and   2   2
+ /             /
+4             4
+就是两棵等价的二叉树。
+
+    1             1
+   / \           / \
+  2   3   and   2   3
+ /               \
+4                 4
+就不是等价的。
+bool isIdentical(TreeNode* a, TreeNode* b) {
+        // Write your code here
+       if(!a&&!b) return true;
+       if(!a&&b||a&&!b) return false;
+         if(a->val!=b->val) return false;
+        if(a->val==b->val)
+        return isIdentical(a->left,b->left)&&isIdentical(a->right,b->right);
+    }
