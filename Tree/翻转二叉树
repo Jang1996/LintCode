@@ -1,0 +1,47 @@
+翻转二叉树
+
+ 描述
+ 笔记
+ 数据
+ 评测
+翻转一棵二叉树
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+  1         1
+ / \       / \
+2   3  => 3   2
+   /       \
+  4         4
+挑战 
+递归固然可行，能否写个非递归的？
+
+递归
+void invertBinaryTree(TreeNode *root) {
+        // write your code here
+        if(root==NULL) return ;//返回值是void,不要返回NULL;
+        TreeNode *p=root->right;
+        root->right=root->left;
+        root->left=p;
+        invertBinaryTree(root->left);//返回值是void,不要写成root->right=invertBinaryTree(root->left);
+        invertBinaryTree(root->right);
+    }
+    非递归
+   void invertBinaryTree(TreeNode *root) {
+        // write your code here
+        if(root==NULL) return ;
+        queue<TreeNode *> Q;
+        Q.push(root);
+        while(!Q.empty()){
+            int size=Q.size();
+            for(int i=0;i<size;++i){
+                TreeNode *p=Q.front();
+                Q.pop();
+                TreeNode *m=p->right;
+                p->right=p->left;
+                p->left=m;
+              if(p->left)  Q.push(p->left);
+                if(p->right) Q.push(p->right);
+            }
+        }
+    } 
