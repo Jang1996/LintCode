@@ -1,0 +1,52 @@
+二叉树的层次遍历 II
+
+ 描述
+ 笔记
+ 数据
+ 评测
+给出一棵二叉树，返回其节点值从底向上的层次序遍历（按从叶节点所在层到根节点所在的层遍历，然后逐层从左往右遍历）
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+给出一棵二叉树 {3,9,20,#,#,15,7},
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+按照从下往上的层次遍历为：
+
+[
+  [15,7],
+  [9,20],
+  [3]
+]
+class Solution {
+    /**
+     * @param root : The root of binary tree.
+     * @return : buttom-up level order a list of lists of integer
+     */
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode *root) {
+        // write your code here
+        vector<vector<int>> v;
+        if(root==NULL) return v;
+       vector<vector<int>>::iterator it;
+        queue<TreeNode*> q; q.push(root);
+        while(!q.empty()){
+            vector<int> level;
+            int size=q.size();
+            for(int i=0;i<size;++i){
+                TreeNode* node=q.front();
+                q.pop();
+                level.push_back(node->val);
+                if(node->left) q.push(node->left);
+                if(node->right) q.push(node->right);
+            } 
+       it=v.begin();
+             v.insert(it,level);
+        }
+        return v;
+    }
+};
