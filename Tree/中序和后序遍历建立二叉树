@@ -32,7 +32,7 @@ TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder) {
         if (iLeft > iRight || pLeft > pRight) return NULL;
         TreeNode *cur = new TreeNode(postorder[pRight]);
         int i = 0;
-        for (i = iLeft; i < iRight; ++i) {
+        for (i = iLeft; i <= iRight; ++i) {
             if (inorder[i] == cur->val) break;
         }
         cur->left = buildTree(inorder, iLeft, i - 1, postorder, pLeft, pLeft + i - iLeft - 1);
