@@ -1,0 +1,41 @@
+二叉树的层次遍历
+
+ 描述
+ 笔记
+ 数据
+ 评测
+给出一棵二叉树，返回其节点值的层次遍历（逐层从左往右访问）
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+给一棵二叉树 {3,9,20,#,#,15,7} ：
+
+  3
+ / \
+9  20
+  /  \
+ 15   7
+返回他的分层遍历结果：
+
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+挑战 
+挑战1：只使用一个队列去实现它
+
+挑战2：用DFS算法来做
+//递归
+vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int> > res;
+        levelorder(root, 0, res);
+        return res;
+    }
+    void levelorder(TreeNode *root, int level, vector<vector<int> > &res) {
+        if (!root) return;
+       if (res.size() == level) res.push_back({});
+        res[level].push_back(root->val);
+        if (root->left) levelorder(root->left, level + 1, res);
+        if (root->right) levelorder(root->right, level + 1, res);
+    }
