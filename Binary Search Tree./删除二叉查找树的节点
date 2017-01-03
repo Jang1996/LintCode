@@ -1,0 +1,45 @@
+
+ /    \
+
+2       4
+
+删除节点3之后，你可以返回：
+
+          5
+
+       /    \
+
+    2          6
+
+      \
+
+         4
+
+或者：
+
+          5
+
+       /    \
+
+    4          6
+
+ /   
+
+2
+TreeNode* removeNode(TreeNode* root, int value) {
+        // write your code here
+ if(root==NULL) return NULL;
+ if(value<root->val) root->left=removeNode(root->left,value);
+else if(value>root->val) root->right=removeNode(root->right,value);
+     else if(root->val==value){
+        if(!root->left||!root->right)
+         root=root->left?root->left:root->right;
+         else{
+             TreeNode *p=root->right;
+             while(p->left&&p->left->left) p=p->left;
+             root->val=p->left->val;p->left=NULL;
+         }
+     }
+    
+    return root;
+    }
