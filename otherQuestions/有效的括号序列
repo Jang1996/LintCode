@@ -1,0 +1,29 @@
+有效的括号序列
+
+ 描述
+ 笔记
+ 数据
+ 评测
+给定一个字符串所表示的括号序列，包含以下字符： '(', ')', '{', '}', '[' and ']'， 判定是否是有效的括号序列。
+
+您在真实的面试中是否遇到过这个题？ Yes
+样例
+括号必须依照 "()" 顺序表示， "()[]{}" 是有效的括号，但 "([)]"则是无效的括号。
+
+挑战 
+O(n)的时间，n为括号的个数
+ bool isValidParentheses(string& s) {
+        // Write your code here   
+        stack<int> S;S.push(s[0]);
+        for(int i=1;i<s.size();++i){
+            if(s[i]=='('||s[i]=='{'||s[i]=='[') S.push(s[i]);
+            else{
+               if(S.empty()) return false;   
+               char top=S.top();
+               if(top=='('&&s[i]!=')') return false;
+               if(top=='{'&&s[i]!='}') return false;
+               if(top=='['&&s[i]!=']') return false;
+               S.pop();
+        }}
+        return S.empty();
+    }
